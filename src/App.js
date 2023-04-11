@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "./store/user/user.reducer";
+import { setCurrentUser } from "./store/user/user.action";
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
@@ -20,13 +20,7 @@ const App = () => {
       if (user) {
         createUserDocumentFromAuth(user);
       }
-      const pickedUser =
-        user &&
-        (({ accessToken, email }) => ({
-          accessToken,
-          email,
-        }))(user);
-      dispatch(setCurrentUser(pickedUser));
+      dispatch(setCurrentUser(user));
     });
     return unsubscribe;
   }, [dispatch]);
